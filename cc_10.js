@@ -47,12 +47,48 @@ class Inventory {
         this.products.push(product);
     }
     listProducts() {
+        if (this.products.length === 0) {
+            console.log("Unavai;able");
+        } else {
         this.products.forEach(product => console.log(product.getDetails()));
     }
 }
+}
+
 let inventory = new Inventory();
 inventory.addProduct(prod1);
-inventory.listProducts();
+inventory.listProducts();   
+
+
+//Task 4 - Implementing Order Management
+class InventoryWithOrders extends Inventory {
+    constructor() {
+        super();
+        this.orders = [];
+    }
+    placeOrder(orderId, product, quantity) {
+        if (product.stock >= quantity) {
+            let order = new Order(orderId, product, quantity);
+            this.orders.push(order);
+            console.log("success");
+        } else {
+            console.log("Error");
+        }
+    }
+    listOrders() {
+        if (this.orders.length === 0) {
+            console.log("no order placed");
+        } else {
+        this.orders.forEach(order => console.log(order.getOrderDetails()));
+    }
+}
+}
+
+let inventoryOrder = new InventoryWithOrders();
+inventoryOrder.addProduct(prod1);
+inventoryOrder.placeOrder(601, prod1, 2);
+inventoryOrder.listOrders();
+console.log(prod1.getDetails());
 
 
 
